@@ -13,16 +13,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('crypto_entities', function (Blueprint $table) {
+        Schema::create('bitcoins', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('symbol');
             $table->decimal('price', 18, 8);
             $table->decimal('market_cap', 18, 8)->nullable();
             $table->decimal('volume', 18, 8)->nullable();
-            $table->decimal('change_1h', 10, 8)->nullable();
-            $table->decimal('change_24h', 10, 8)->nullable();
-            $table->decimal('change_7d', 10, 8)->nullable();
+            $table->string('change_1h', 10, 8)->nullable();
+            $table->string('change_24h', 10, 8)->nullable();
+            $table->string('change_7d', 10, 8)->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('crypto_entities');
+        Schema::dropIfExists('bitcoins');
     }
 };

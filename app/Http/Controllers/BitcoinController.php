@@ -8,7 +8,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Bitcoin;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
 
 class BitcoinController extends Controller
 {
@@ -35,14 +34,13 @@ class BitcoinController extends Controller
     }
 
     /**
-     * Get Crypto data by symbol and by time (hour, day, week, month, year) from now.
+     * Get Bitcoin data by time (hour, day, week, month, year) from now.
      *
-     * @param string $symbol
      * @param string $time
      * @param int|null $timeValue
      * @return JsonResponse
      */
-    public function show(string $symbol, string $time, ?int $timeValue): JsonResponse
+    public function showByDate(string $time, ?int $timeValue): JsonResponse
     {
         if (!in_array($time, ['hours', 'days', 'weeks', 'months', 'years'])) {
             return response()->json(['message' => 'Invalid time unit'], 400);
@@ -63,6 +61,7 @@ class BitcoinController extends Controller
         foreach ($crypto as $c) {
             $cryptoArray = $c->toArray();
             $data[] = [
+                'name' => $cryptoArray['name'] ?? null,
                 'symbol' => $cryptoArray['symbol'] ?? null,
                 'price' => $cryptoArray['price'] ?? null,
                 'market_cap' => $cryptoArray['market_cap'] ?? null,
@@ -75,5 +74,10 @@ class BitcoinController extends Controller
         }
 
         return response()->json($data);
+    }
+
+    public function show(Bitcoin $bitcoin): JsonResponse
+    {
+        return response()->json($bitcoin);
     }
 }

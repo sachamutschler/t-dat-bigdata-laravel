@@ -14,9 +14,9 @@ return new class extends Migration {
             $table->decimal('price');
             $table->decimal('market_cap');
             $table->decimal('volume');
-            $table->decimal('change_1h');
-            $table->decimal('change_24h');
-            $table->decimal('change_7d');
+            $table->string('change_1h');
+            $table->string('change_24h');
+            $table->string('change_7d');
             $table->timestamps();
         });
     }
