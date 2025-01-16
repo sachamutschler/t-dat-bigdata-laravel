@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('symbol');
-            $table->decimal('price', 18, 8);
-            $table->decimal('market_cap', 18, 8)->nullable();
-            $table->decimal('volume', 18, 8)->nullable();
+            $table->decimal('price', 20, 8);
+            $table->decimal('market_cap', 20, 8)->nullable();
+            $table->decimal('volume', 20, 8)->nullable();
             $table->string('change_1h', 10, 8)->nullable();
             $table->string('change_24h', 10, 8)->nullable();
             $table->string('change_7d', 10, 8)->nullable();
