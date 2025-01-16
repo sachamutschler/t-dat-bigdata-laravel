@@ -10,9 +10,9 @@ class CryptoEntity extends Model
 {
     public string $name;
     public string $symbol;
-    public int $price;
-    public int $market_cap;
-    public int $volume;
+    public float $price;
+    public float $market_cap;
+    public float $volume;
     public float $change_1h;
     public float $change_24h;
     public float $change_7d;
