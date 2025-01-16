@@ -6,11 +6,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Models\CryptoEntity;
+use App\Models\Bitcoin;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
-class CryptoEntityController extends Controller
+class BitcoinController extends Controller
 {
     /**
      * Store Crypto in the database.
@@ -20,18 +20,18 @@ class CryptoEntityController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $crypto = new CryptoEntity();
-        $crypto->name = $request->name;
-        $crypto->symbol = $request->symbol;
-        $crypto->price = $request->price;
-        $crypto->market_cap = $request->market_cap;
-        $crypto->volume = $request->volume;
-        $crypto->change_1h = $request->change_1h;
-        $crypto->change_24h = $request->change_24h;
-        $crypto->change_7d = $request->change_7d;
-        $crypto->save();
+        $data = $request->validate([
+            'name' => ['required'],
+            'symbol' => ['required'],
+            'price' => ['required', 'numeric'],
+            'market_cap' => ['required', 'numeric'],
+            'volume' => ['required', 'numeric'],
+            'change_1h' => ['required', 'numeric'],
+            'change_24h' => ['required', 'numeric'],
+            'change_7d' => ['required', 'numeric'],
+        ]);
 
-        return response()->json($crypto, 201);
+        return Bitcoin::create($data);
     }
 
     /**
@@ -48,15 +48,14 @@ class CryptoEntityController extends Controller
             return response()->json(['message' => 'Invalid time unit'], 400);
         }
         try {
-            $crypto = CryptoEntity::where('symbol', Str::upper($symbol))
-                ->where('created_at', '>=', Carbon::now()->sub($time, $timeValue))
+            $crypto = Bitcoin::where('created_at', '>=', Carbon::now()->sub($time, $timeValue))
                 ->get();
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error searching the given symbol, error : ' . $e], 400);
         }
 
         if ($crypto->isEmpty()) {
-            return response()->json(['message' => 'No data found for the given symbol'], 404);
+            return response()->json(['message' => 'No bitcoin found for the given time'], 404);
         }
 
         $data = [];

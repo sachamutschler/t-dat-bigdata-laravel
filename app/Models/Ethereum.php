@@ -1,28 +1,26 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CryptoEntity extends Model
+class Ethereum extends Model
 {
     public string $name;
     public string $symbol;
     public float $price;
     public float $market_cap;
     public float $volume;
-    public float $change_1h;
-    public float $change_24h;
-    public float $change_7d;
+    public string $change_1h;
+    public string $change_24h;
+    public string $change_7d;
 
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'crypto_entities';
+    protected $table = 'ethereums';
 
     /**
      * The primary key associated with the table.
@@ -30,21 +28,6 @@ class CryptoEntity extends Model
      * @var string
      */
     protected $primaryKey = 'id';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'symbol',
-        'price',
-        'market_cap',
-        'volume',
-        'change_1h',
-        'change_24h',
-        'change_7d',
-    ];
 
     /**
      * The attributes that should be hidden for serialization.
