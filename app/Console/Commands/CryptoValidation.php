@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Models\CryptoEntity;
+use App\Models\Bitcoin;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -28,16 +28,14 @@ class CryptoValidation extends Command
     /**
      * Tolerance percentage for price difference.
      */
-    protected float $tolerance = 5; // Tolérance de 5%
+    protected float $tolerance = 3; // Tolérance de 3%
 
     /**
      * Execute the console command.
      */
     public function handle(): void
     {
-        $lastPrice = CryptoEntity::where('symbol', 'BTC')
-            ->orderBy('created_at', 'desc')
-            ->first();
+        $lastPrice = Bitcoin::latest()->first();
         if (!$lastPrice) {
             $this->error('No record found in the database.');
             return;
