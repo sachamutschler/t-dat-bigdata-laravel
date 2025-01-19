@@ -69,7 +69,7 @@ class BitcoinController extends Controller
                 'change_1h' => $cryptoArray['change_1h'] ?? null,
                 'change_24h' => $cryptoArray['change_24h'] ?? null,
                 'change_7d' => $cryptoArray['change_7d'] ?? null,
-                'created_at' => $cryptoArray['created_at'] ?? null,
+                'created_at' => Carbon::parse($cryptoArray['created_at'])->format('d/m/Y H:i') ?? null,
             ];
         }
 
