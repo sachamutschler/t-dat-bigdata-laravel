@@ -16,6 +16,7 @@ class Bitcoin extends Model
     public string $change_1h;
     public string $change_24h;
     public string $change_7d;
+    public string $created_at;
 
     /**
      * The table associated with the model.
@@ -30,14 +31,4 @@ class Bitcoin extends Model
      * @var string
      */
     protected $primaryKey = 'id';
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'created_at',
-        'updated_at',
-    ];
 }
